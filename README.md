@@ -194,43 +194,9 @@ To upload `login.html` to MikroTik:
 
 ## 🔄 Authentication Flow
 
-```
-User connects to Wi-Fi
-        │
-        ▼
-MikroTik redirects to login.html
-        │
-        ▼
-login.html redirects to emailotp.php on Ubuntu server
-        │
-        ▼
-User enters email address → PHP generates 4-digit OTP
-        │
-        ▼
-EmailJS (JavaScript) sends OTP email via api.emailjs.com
-        │
-        ▼
-User enters OTP → PHP validates against session
-        │
-        ├── Wrong OTP → Increment attempt counter (max 5)
-        │
-        └── Correct OTP:
-                │
-                ▼
-        Temporary RADIUS user created (email = username, OTP = password)
-                │
-                ▼
-        Auto-submit login form to MikroTik hotspot
-                │
-                ▼
-        MikroTik sends RADIUS Access-Request (PAP) to FreeRADIUS
-                │
-                ▼
-        FreeRADIUS authenticates → Access-Accept with session attributes
-                │
-                ▼
-        User gains internet access
-```
+The sequence diagram below illustrates the complete authentication process from user connection to internet access:
+
+![forgit](https://github.com/sanjeevRae/RADIUS-Email-Wi-Fi-Captive-Portal/blob/main/Sequence%20Diagram.png)
 
 **Flow Steps:**
 
